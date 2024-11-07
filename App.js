@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Alert, TouchableOpacity, ScrollView } from 'react-native';
-import Question from './components/Question'; // Updated import statement
+import Question from './components/Question';
 import Icon from "react-native-vector-icons/FontAwesome6";
 
 export default function App() {
-    const [answers, setAnswers] = useState({ question1: null, question2: null, question3: null });
+    const [answers, setAnswers] = useState({ question1: null, question2: null, question3: null, question4: null });
 
     const handleAnswerChange = (question, value) => {
         setAnswers({ ...answers, [question]: value });
@@ -13,8 +13,9 @@ export default function App() {
     const checkAnswers = () => {
         const correctAnswers = {
             question1: 'Lamborghini',
-            question2: 'Honda',
-            question3: 'Civic',
+            question2: 'Audi',
+            question3: 'Honda',
+            question4: 'Tesla',
         };
 
         let score = 0;
@@ -24,16 +25,16 @@ export default function App() {
             }
         });
 
-        Alert.alert(`You got ${score} out of 3 correct!`);
+        Alert.alert(`You got ${score} out of 4 correct!`);
     };
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <Text style={styles.titleText}>
-                <Icon name="car" size={30} color="#B23B23"/>Supercar
+                <Icon name="car" size={30} color="#B22222"/> Supercar Quiz
             </Text>
 
-            {/* Use the Question component for each question */}
+            {/* Render each question with the Question component */}
             <Question
                 imageSource={require('./img/lambo.jpg')}
                 questionText="What car is this?"
@@ -45,24 +46,34 @@ export default function App() {
                 onValueChange={(value) => handleAnswerChange('question1', value)}
             />
             <Question
-                imageSource={require('./img/honda.jpg')}
+                imageSource={require('./img/audi.jpg')}
                 questionText="What car is this?"
                 options={[
-                    { label: 'Honda', value: 'Honda' },
                     { label: 'Toyota', value: 'Toyota' },
                     { label: 'Nissan', value: 'Nissan' },
+                    { label: 'Audi', value: 'Audi' },
                 ]}
                 onValueChange={(value) => handleAnswerChange('question2', value)}
             />
             <Question
-                imageSource={require('./img/civic.jpg')}
+                imageSource={require('./img/honda.jpg')}
                 questionText="What car is this?"
                 options={[
-                    { label: 'Civic', value: 'Civic' },
-                    { label: 'Accord', value: 'Accord' },
-                    { label: 'Corolla', value: 'Corolla' },
+                    { label: 'Toyota', value: 'Toyota' },
+                    { label: 'Honda', value: 'Honda' },
+                    { label: 'Nissan', value: 'Nissan' },
                 ]}
                 onValueChange={(value) => handleAnswerChange('question3', value)}
+            />
+            <Question
+                imageSource={require('./img/tesla.jpg')}
+                questionText="What car is this?"
+                options={[
+                    { label: 'Tesla', value: 'Tesla' },
+                    { label: 'BMW', value: 'BMW' },
+                    { label: 'Ford', value: 'Ford' },
+                ]}
+                onValueChange={(value) => handleAnswerChange('question4', value)}
             />
 
             <TouchableOpacity onPress={checkAnswers} style={styles.submitButton}>
@@ -75,23 +86,25 @@ export default function App() {
 const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#1C1C1C',
         padding: 20,
     },
+    titleText: {
+        fontSize: 28,
+        fontWeight: 'bold',
+        color: '#B22222',
+        textAlign: 'center',
+        marginBottom: 20,
+    },
     submitButton: {
-        backgroundColor: '#4CAF50',
+        backgroundColor: '#B22222',
         padding: 15,
-        borderRadius: 8,
         alignItems: 'center',
+        marginTop: 20,
     },
     submitButtonText: {
-        color: '#fff',
+        color: '#FFFFFF',
         fontSize: 16,
-        fontWeight: 'bold',
-    },
-    titleText: {
-        paddingLeft: 30,
-        fontSize: 30,
         fontWeight: 'bold',
     },
 });
